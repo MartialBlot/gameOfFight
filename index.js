@@ -11,10 +11,28 @@ let bY = 50;
 let dX = 0;
 let dY = 0;
 
+let goku = new Image();
+goku.src = "assets/pictures/GokuSuperSaiyan.png";
+let gokuWidth = 720; 
+let gokuHeight = 220; 
+let gokuRows = 1; 
+let gokuCols = 6; 
+let gWidth = gokuWidth/gokuCols;  
+let gHeight = gokuHeight/gokuRows; 
+let gokuCurFrame = 0; 
+let gokuFrameCount = 6; 
+let gokuX=200;
+let gokuY=370; 
+let gokuSrcX= 0; 
+let gokuSrcY= 510;
+
 let ctx = canvas.getContext("2d");
 
 
 function updateFrame(){
+    gokuCurFrame = ++gokuCurFrame % gokuFrameCount;
+    gokuSrcX = gokuCurFrame * gWidth;
+    ctx.clearRect(gokuX,gokuY,gWidth,gHeight);
     
 }
 
@@ -34,6 +52,7 @@ document.addEventListener('keyup',function(e){
     function draw(){
         updateFrame();
         ctx.drawImage(map,bX,bY,741,300,dX,dY,1200,800);
+        ctx.drawImage(goku,gokuSrcX,gokuSrcY,gokuWidth,gokuHeight,gokuX,gokuY,gokuWidth,gokuHeight);
     }
 
     setInterval(draw, 80);
