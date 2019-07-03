@@ -71,6 +71,16 @@ function gameLoop() {
     if(keyState[190]){
         rightPunch();
     }
+
+    if(keyState[68]){
+        gokuX++;
+        forward();
+    }
+
+    if(keyState[65]){
+        gokuX--;
+        back();
+    }
     
     setTimeout(gameLoop, 10);
 }    
@@ -83,6 +93,28 @@ function draw(){
 }
 
 setInterval(draw, 110);
+
+function forward(){
+    gokuWidth = 110; 
+    gokuHeight = 165; 
+    gokuRows = 1; 
+    gokuCols = 1;
+    gWidth = gokuWidth/gokuCols;  
+    gHeight = gokuHeight/gokuRows; 
+    gokuFrameCount = 1; 
+    gokuSrcY= 1320;
+}
+
+function back(){
+    gokuWidth = 100; 
+    gokuHeight = 165; 
+    gokuRows = 1; 
+    gokuCols = 1;
+    gWidth = gokuWidth/gokuCols;  
+    gHeight = gokuHeight/gokuRows; 
+    gokuFrameCount = 1; 
+    gokuSrcY= 1495;
+}
 
 function posInitRightGoku(){
     gokuWidth = 1200; 
