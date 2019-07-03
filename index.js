@@ -71,7 +71,11 @@ function gameLoop() {
     if(keyState[190]){
         rightPunch();
     }
-
+    
+    if(keyState[191]){
+        kamea();
+    }
+    
     if(keyState[68] && gokuX<1060){
         gokuX+=5;
         forward();
@@ -79,7 +83,7 @@ function gameLoop() {
             rightPunch();
         }
     }
-
+    
     if(keyState[65] && gokuX>0){
         gokuX-=5;
         back();
@@ -87,7 +91,7 @@ function gameLoop() {
             rightPunch();
         }
     }
-
+    
     
     setTimeout(gameLoop, 10);
 }    
@@ -167,5 +171,42 @@ function rightPunch(){
         gokuFrameCount = 7; 
         gokuSrcY= 1160;
         setTimeout(posFlightRightGoku, 500)
+    }
+}
+
+function kamea(){
+    gokuWidth = 1390; 
+    gokuHeight = 165; 
+    gokuRows = 1; 
+    gokuCols = 7;
+    gWidth = gokuWidth/gokuCols;  
+    gHeight = gokuHeight/gokuRows; 
+    gokuFrameCount = 7; 
+    gokuSrcY= 1670;
+    setTimeout(kameaFinal, 750)
+}
+
+function kameaFinal(){
+    if(gokuY===270){
+        gokuWidth = 900; 
+        gokuHeight = 165; 
+        gokuRows = 1; 
+        gokuCols = 1;
+        gWidth = gokuWidth/gokuCols;  
+        gHeight = gokuHeight/gokuRows; 
+        gokuFrameCount = 1; 
+        gokuSrcY= 1840;
+        setTimeout(posInitRightGoku, 300)
+    }
+    if(gokuY<270){
+        gokuWidth = 900; 
+        gokuHeight = 165; 
+        gokuRows = 1; 
+        gokuCols = 1;
+        gWidth = gokuWidth/gokuCols;  
+        gHeight = gokuHeight/gokuRows; 
+        gokuFrameCount = 1; 
+        gokuSrcY= 1840;
+        setTimeout(posFlightRightGoku, 300)        
     }
 }
