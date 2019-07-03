@@ -25,8 +25,12 @@ let gokuX=200;
 let gokuY=270; 
 let gokuSrcX= 0; 
 let gokuSrcY= 565;
+
+let levelKi = 30;
+let life = 100;
+
 //Mise en place posInit après intro au combat
-setTimeout(posInitRightGoku, 2385)
+setTimeout(posInitRightGoku, 1750)
 
 let ctx = canvas.getContext("2d");
 
@@ -97,13 +101,29 @@ function gameLoop() {
 }    
 gameLoop();
 
+//FPS
+let baseFps = new Date();
 function draw(){
+    //Fps calculs
+    let diffFps = new Date();
+    let fps = 1000 / (diffFps - baseFps);
+    baseFps = diffFps;
+
     updateFrame();
+    //Map
     ctx.drawImage(map,bX,bY,741,300,dX,dY,1200,800);
+    //FPS
+    ctx.font="20px helvetica";
+    ctx.fillText(`fps: ${fps.toFixed(0)}`, 10, 20);
+    //KI
+    ctx.fillText(`KI: ${levelKi}/100`, 100, 20);
+    //Life
+    ctx.fillText(`PV: ${life} | 100`, 230, 20);
+    //Characters
     ctx.drawImage(goku,gokuSrcX,gokuSrcY,gWidth,gHeight,gokuX,gokuY,gWidth*1.3,gHeight*1.3);
 }
 
-setInterval(draw, 110);
+setInterval(draw, 70);
 
 function forward(){
     gokuWidth = 110; 
@@ -183,7 +203,7 @@ function kamea(){
     gHeight = gokuHeight/gokuRows; 
     gokuFrameCount = 7; 
     gokuSrcY= 1670;
-    setTimeout(kameaFinal, 750)
+    setTimeout(kameaFinal, 300)
 }
 
 function kameaFinal(){
