@@ -48,8 +48,8 @@ document.addEventListener('keyup',function(e){
 
 function gameLoop() {
     
-    if (keyState[87]){
-        gokuY--
+    if (keyState[87] && gokuY>0){
+        gokuY-=3
         if(gokuY===270){
             posInitRightGoku()
         }
@@ -59,7 +59,7 @@ function gameLoop() {
     }
     
     if (keyState[83] && gokuY<270){
-        gokuY++
+        gokuY+=3
         if(gokuY===270){
             posInitRightGoku()
         }
@@ -72,15 +72,22 @@ function gameLoop() {
         rightPunch();
     }
 
-    if(keyState[68]){
-        gokuX++;
+    if(keyState[68] && gokuX<1060){
+        gokuX+=5;
         forward();
+        if(keyState[190]){
+            rightPunch();
+        }
     }
 
-    if(keyState[65]){
-        gokuX--;
+    if(keyState[65] && gokuX>0){
+        gokuX-=5;
         back();
+        if(keyState[190]){
+            rightPunch();
+        }
     }
+
     
     setTimeout(gameLoop, 10);
 }    
