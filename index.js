@@ -30,7 +30,7 @@ let levelKi = 30;
 let life = 100;
 
 //Mise en place posInit après intro au combat
-setTimeout(posInitRightGoku, 1750)
+setTimeout(posInitRightGoku, 1900)
 
 let cell = new Image();
 cell.src = "assets/pictures/cell.png";
@@ -150,7 +150,7 @@ function draw(){
     ctx.drawImage(map,bX,bY,741,300,dX,dY,1200,800);
     //FPS
     ctx.font="20px helvetica";
-    ctx.fillText(`fps: ${fps.toFixed(0)}`, 10, 20);
+    ctx.fillText(`FPS: ${fps.toFixed(0)}`, 10, 20);
     //KI
     ctx.fillText(`KI: ${levelKi}/100`, 100, 20);
     //Life
