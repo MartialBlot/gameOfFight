@@ -50,6 +50,8 @@ let cellSrcY= 510;
 let levelKiAdv = 30;
 let lifeAdv = 100;
 
+let isWin = false;
+
 //Mise en place posInit après intro au combat
 setTimeout(posInitRightCell, 1750)
 
@@ -124,6 +126,12 @@ function gameLoop() {
     if(keyState[88]){
         rechargeKi()
     }
+
+    if(keyState[27]){
+        if(isWin){
+        document.location.reload(true);
+        }
+    }
     
     setTimeout(gameLoop, 10);
 }    
@@ -151,6 +159,10 @@ function draw(){
     ctx.fillText(`KI: ${levelKiAdv}/100`, 900, 20);
     //Life ADV
     ctx.fillText(`PV: ${lifeAdv} | 100`, 1030, 20);
+
+    if(isWin){
+    ctx.fillText(`Win !! please press ESC for restart`, 430, 70);
+    }
     //Characters
     ctx.drawImage(goku,gokuSrcX,gokuSrcY,gWidth,gHeight,gokuX,gokuY,gWidth*1.3,gHeight*1.3);
     ctx.drawImage(cell,cellSrcX,cellSrcY,cWidth,cHeight,cellX,cellY,cWidth*1.3,cHeight*1.3);
@@ -264,7 +276,16 @@ function kameaFinal(){
         gHeight = gokuHeight/gokuRows; 
         gokuFrameCount = 1; 
         gokuSrcY= 1840;
-        setTimeout(posInitRightGoku, 300)
+        setTimeout(posInitRightGoku, 300)//regler kamea
+        if((gokuX+850)>=cellX && (gokuX+140)< (cellX) && (gokuY)>=cellY && (gokuY)<(cellY+190)){
+            touchPunch()
+            if((cellX+150)<canvasWidth && cellX>0){
+                cellX+=5
+                }
+            if(lifeAdv>0){
+            setTimeout(posInitRightCell, 450)
+            }
+        }
     }
     if(gokuY<270){
         gokuWidth = 900; 
@@ -275,7 +296,17 @@ function kameaFinal(){
         gHeight = gokuHeight/gokuRows; 
         gokuFrameCount = 1; 
         gokuSrcY= 1840;
-        setTimeout(posFlightRightGoku, 300)        
+        setTimeout(posFlightRightGoku, 300)
+        if((gokuX+850)>=cellX && (gokuX+140)< (cellX) && (gokuY)>=cellY-100
+        && (gokuY)<(cellY+190)){
+            touchPunch()
+            if((cellX+150)<canvasWidth && cellX>0){
+                cellX+=5
+                }
+            if(lifeAdv>0){
+            setTimeout(posInitRightCell, 450)
+            }
+        }    
     }
 }
 
@@ -306,7 +337,7 @@ function posInitRightCell(){
     cHeight = cellHeight/cellRows; 
     cellFrameCount = 6; 
     cellSrcY= 755;
-    if(lifeAdv<=0){
+    if(lifeAdv <= 0){
         cellDeath();
     }
 }
@@ -320,13 +351,14 @@ function touchPunch(){
     cHeight = cellHeight/cellRows; 
     cellFrameCount = 4; 
     cellSrcY= 980;
-    lifeAdv--
-    if(lifeAdv<=0){
+    lifeAdv--;
+    if(lifeAdv <= 0){
         cellDeath()
     }
 }
 
 function cellDeath(){
+    lifeAdv = 0;
     cellWidth = 450; 
     cellHeight = 130; 
     cellRows = 1; 
@@ -351,5 +383,5 @@ function cellOnFloor(){
 }
 
 function win(){
-    alert('Goku WIN!!!');
+    isWin = true;
 }
