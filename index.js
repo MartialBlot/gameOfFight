@@ -97,7 +97,7 @@ function gameLoop() {
     }
 
     if(keyState[88]){
-        recharge()
+        rechargeKi()
     }
     
     
@@ -211,7 +211,9 @@ function kamea(){
 }
 
 function kameaFinal(){
-    levelKi = levelKi - 40
+    if(levelKi>0){
+    levelKi-=2
+}
     if(gokuY===270){
         gokuWidth = 900; 
         gokuHeight = 165; 
@@ -236,28 +238,19 @@ function kameaFinal(){
     }
 }
 
-function recharge(){
-    gokuWidth = 240; 
-    gokuHeight = 165; 
-    gokuRows = 1; 
-    gokuCols = 3;
-    gWidth = gokuWidth/gokuCols;  
-    gHeight = gokuHeight/gokuRows; 
-    gokuFrameCount = 3; 
-    gokuSrcY= 2050;
-    setTimeout(rechargeKi, 300)
-}
-
 function rechargeKi(){
-    while(levelKi < 100){
+    if(levelKi < 100){
     gokuWidth = 215; 
-    gokuHeight = 140; 
+    gokuHeight = 165; 
     gokuRows = 1; 
     gokuCols = 2;
     gWidth = gokuWidth/gokuCols;  
     gHeight = gokuHeight/gokuRows; 
     gokuFrameCount = 2; 
-    gokuSrcY= 2220;
-    levelKi++
+    gokuSrcY= 2250;
+    levelKi++;
+    }   else {
+    if(gokuY===270){posInitRightGoku()}
+    if(gokuY<270){posFlightRightGoku()}  
     }
 }
