@@ -32,6 +32,27 @@ let life = 100;
 //Mise en place posInit après intro au combat
 setTimeout(posInitRightGoku, 1750)
 
+let cell = new Image();
+cell.src = "assets/pictures/cell.png";
+let cellWidth = 1930; 
+let cellHeight = 190; 
+let cellRows = 1; 
+let cellCols = 15; 
+let cWidth = cellWidth/cellCols;  
+let cHeight = cellHeight/cellRows; 
+let cellCurFrame = 0; 
+let cellFrameCount = 15; 
+let cellX=800;
+let cellY=250; 
+let cellSrcX= 0; 
+let cellSrcY= 510;
+
+let levelKiAdv = 30;
+let lifeAdv = 100;
+
+//Mise en place posInit après intro au combat
+setTimeout(posInitRightCell, 1750)
+
 let ctx = canvas.getContext("2d");
 
 
@@ -39,6 +60,10 @@ function updateFrame(){
     gokuCurFrame = ++gokuCurFrame % gokuFrameCount;
     gokuSrcX = gokuCurFrame * gWidth;
     ctx.clearRect(gokuX,gokuY,gWidth,gHeight);
+
+    cellCurFrame = ++cellCurFrame % cellFrameCount;
+    cellSrcX = cellCurFrame * cWidth;
+    ctx.clearRect(cellX,cellY,cWidth,cHeight);
     
 }
 
@@ -125,10 +150,11 @@ function draw(){
     ctx.fillText(`PV: ${life} | 100`, 230, 20);
     //Characters
     ctx.drawImage(goku,gokuSrcX,gokuSrcY,gWidth,gHeight,gokuX,gokuY,gWidth*1.3,gHeight*1.3);
+    ctx.drawImage(cell,cellSrcX,cellSrcY,cWidth,cHeight,cellX,cellY,cWidth*1.3,cHeight*1.3);
 }
 
 setInterval(draw, 70);
-
+//GOKU
 function forward(){
     gokuWidth = 110; 
     gokuHeight = 165; 
@@ -253,4 +279,16 @@ function rechargeKi(){
     if(gokuY===270){posInitRightGoku()}
     if(gokuY<270){posFlightRightGoku()}  
     }
+}
+
+//ADV Animation
+function posInitRightCell(){
+    cellWidth = 720; 
+    cellHeight = 190; 
+    cellRows = 1; 
+    cellCols = 6;
+    cWidth = cellWidth/cellCols;  
+    cHeight = cellHeight/cellRows; 
+    cellFrameCount = 6; 
+    cellSrcY= 755;
 }
