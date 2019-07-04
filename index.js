@@ -125,7 +125,6 @@ function gameLoop() {
         rechargeKi()
     }
     
-    
     setTimeout(gameLoop, 10);
 }    
 gameLoop();
@@ -148,6 +147,10 @@ function draw(){
     ctx.fillText(`KI: ${levelKi}/100`, 100, 20);
     //Life
     ctx.fillText(`PV: ${life} | 100`, 230, 20);
+    //KI ADV
+    ctx.fillText(`KI: ${levelKiAdv}/100`, 900, 20);
+    //Life ADV
+    ctx.fillText(`PV: ${lifeAdv} | 100`, 1030, 20);
     //Characters
     ctx.drawImage(goku,gokuSrcX,gokuSrcY,gWidth,gHeight,gokuX,gokuY,gWidth*1.3,gHeight*1.3);
     ctx.drawImage(cell,cellSrcX,cellSrcY,cWidth,cHeight,cellX,cellY,cWidth*1.3,cHeight*1.3);
@@ -210,6 +213,12 @@ function rightPunch(){
         gokuFrameCount = 4; 
         gokuSrcY= 755;
         setTimeout(posInitRightGoku, 250)
+        if((gokuX+140)>=cellX && (gokuX+140)< (cellX+150) && (gokuY)>=cellY && (gokuY)<(cellY+190)){
+            touchPunch()
+            if(lifeAdv>=0){
+            setTimeout(posInitRightCell, 450)
+            }
+        }
     }
     if(gokuY<270){
         gokuWidth = 905; 
@@ -221,6 +230,12 @@ function rightPunch(){
         gokuFrameCount = 7; 
         gokuSrcY= 1160;
         setTimeout(posFlightRightGoku, 500)
+        if((gokuX+140)>=cellX && (gokuX+140)< (cellX+150) && (gokuY)>=(cellY-100) && (gokuY)<(cellY+190)){
+            touchPunch()
+            if(lifeAdv>=0){
+            setTimeout(posInitRightCell, 450)
+            }
+        }
     }
 }
 
@@ -291,4 +306,50 @@ function posInitRightCell(){
     cHeight = cellHeight/cellRows; 
     cellFrameCount = 6; 
     cellSrcY= 755;
+    if(lifeAdv<=0){
+        cellDeath();
+    }
+}
+
+function touchPunch(){
+    cellWidth = 480; 
+    cellHeight = 190; 
+    cellRows = 1; 
+    cellCols = 4;
+    cWidth = cellWidth/cellCols;  
+    cHeight = cellHeight/cellRows; 
+    cellFrameCount = 4; 
+    cellSrcY= 980;
+    lifeAdv--
+    if(lifeAdv<=0){
+        cellDeath()
+    }
+}
+
+function cellDeath(){
+    cellWidth = 450; 
+    cellHeight = 130; 
+    cellRows = 1; 
+    cellCols = 3;
+    cWidth = cellWidth/cellCols;  
+    cHeight = cellHeight/cellRows; 
+    cellFrameCount = 3; 
+    cellSrcY= 1250;
+    setTimeout(cellOnFloor, 200)
+}
+
+function cellOnFloor(){
+    cellWidth = 150; 
+    cellHeight = 190; 
+    cellRows = 1; 
+    cellCols = 1;
+    cWidth = cellWidth/cellCols;  
+    cHeight = cellHeight/cellRows; 
+    cellFrameCount = 1; 
+    cellSrcY= 1380;
+    setTimeout(win,500);
+}
+
+function win(){
+    alert('Goku WIN!!!');
 }
